@@ -1,0 +1,11 @@
+{
+  "name": "ubirch-hugo-playground",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ubirch/ubirch-hugo-playground",
+  "author": "Tomasz Krawczyk <grubach1@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@ubirch/ubirch-verification-widget": "^1.0.1"
+  }
+}

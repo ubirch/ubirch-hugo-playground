@@ -10,6 +10,34 @@
         <!-- Note that the content for index.html, as a sort of list page, will pull from content/_index.md -->
         {{.Content}}
       </div>
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Ubirch Verification Widget</title>
+</head>
+<body>
+<div class="input-field">
+  <label for="token-input">UBIRCH verification token:</label>
+  <textarea rows="10" cols="80" placeholder="" type="text" id="token-input"></textarea>
+</div>
+<button id="set-token">Set UBIRCH verification token</button>
+<div class="input-field">
+  <label for="json-input">JSON:</label>
+  <textarea rows="10" cols="80" placeholder="" type="text" id="json-input"></textarea>
+</div>
+<button id="verify-json">Verify JSON</button>
+<div class="input-field">
+  <label for="output">Output:</label>
+  <textarea rows="10" cols="80" placeholder="" type="text" id="output"></textarea>
+</div>
+<!-- {{ $externals := slice "@ubirch/ubirch-verification-widget" }} -->
+<!-- {{ $defines := dict "process.env.NODE_ENV" `"development"` }} -->
+
+<!-- {{ $opts := dict "targetPath" "main.js" "externals" $externals "defines" $defines }} -->
+  {{ $js := resources.Get "js/main.js" | js.Build}}
+  <!-- {{ $built := resources.Get "js/main.js" | js.Build $opts }} -->
+  <script  src="{{$built.Permalink}}"></script>
+
       <div>
         {{ range first 10 .Site.RegularPages }}
             {{ .Render "summary"}}
