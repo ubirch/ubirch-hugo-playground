@@ -2,3 +2,10 @@ baseURL = "http://example.org/"
 languageCode = "en-us"
 title = "My New Hugo Site"
 theme = "blank"
+relativeURLs = true
+
+[module]
+
+  [[module.mounts]]
+    source = "node_modules"
+    target = "static/js/node_modules"
