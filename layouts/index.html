@@ -44,7 +44,7 @@
     ></textarea>
   </div>
 
-  {{ $js := resources.Get "js/main.js" | js.Build}}
+  {{ $js := resources.Get "js/main.js" | js.Build (dict "minify" true) }}
   <script src="{{$js.RelPermalink}}"></script>
 
   <div>
