@@ -1,7 +1,12 @@
 // @ts-ignore
 import { UbirchVerification } from './node_modules/ubirch-verification-js/src/verification';
+import {
+  EHashAlgorithms,
+  EStages,
+// @ts-ignore
+} from './node_modules/ubirch-verification-js/src/models';
 
-let ubirchVerification;
+let ubirchVerification: UbirchVerification;
 
 // verify JSON button click listener
 document.getElementById('set-token').addEventListener('click', function () {
@@ -10,9 +15,8 @@ document.getElementById('set-token').addEventListener('click', function () {
   if (token) {
     // create UbirchVerification instance
     ubirchVerification = new UbirchVerification({
-      elementSelector: '#widget',
-      algorithm: 'sha256',
-      stage: 'dev',
+      algorithm: EHashAlgorithms.SHA256,
+      stage: EStages.dev,
       accessToken: token,
     });
   } else {
