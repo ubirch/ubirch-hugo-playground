@@ -1,10 +1,12 @@
-import './node_modules/@ubirch/ubirch-verification-widget/dist/ubirch-verification-widget.min.js';
+// @ts-ignore
+import { UbirchVerification } from './node_modules/ubirch-verification-js/src/verification';
 
 let ubirchVerification;
 
 // verify JSON button click listener
 document.getElementById('set-token').addEventListener('click', function () {
-  const token = document.getElementById('token-input').value;
+  const token = (document.getElementById('token-input') as HTMLInputElement)
+    .value;
   if (token) {
     // create UbirchVerification instance
     ubirchVerification = new UbirchVerification({
@@ -27,7 +29,8 @@ document.getElementById('verify-json').addEventListener('click', function () {
       'Verification Widget not initialized propertly - did you set a token?\n';
     window.alert(msg);
   } else {
-    const json = document.getElementById('json-input').value;
+    const json = (document.getElementById('json-input') as HTMLInputElement)
+      .value;
     if (!json) {
       // handle the error yourself and inform user about the missing JSON
       const msg = 'Please add a JSON to be verified\n';
@@ -45,7 +48,7 @@ document.getElementById('verify-json').addEventListener('click', function () {
             response.upp.state +
             '\n' +
             response.verificationState;
-          document.getElementById('output').value = msg;
+          (document.getElementById('output') as HTMLInputElement).value = msg;
         })
         .catch((errResponse) => {
           const msg =
@@ -62,4 +65,3 @@ document.getElementById('verify-json').addEventListener('click', function () {
     }
   }
 });
-console.log(231);
