@@ -1,16 +1,20 @@
 // @ts-ignore
 import UbirchVerification from './node_modules/ubirch-verification-js/src/verification';
 // @ts-ignore
-// import { FormUtils } from './node_modules/ubirch-verification-js/src/form-utils/form-utils';
+import { FormUtils } from './node_modules/ubirch-verification-js/src/form-utils/form-utils';
 import {
   EHashAlgorithms,
   EStages,
   // @ts-ignore
 } from './node_modules/ubirch-verification-js/src/models/models';
 
-// const formUtils = new FormUtils({ formIds: ['created', 'name', 'workshop'] });
-// const params = FormUtils.getFormParamsFromUrl(window);
-// formUtils.setDataIntoForm(params, document);
+const formUtils = new FormUtils({ formIds: ['created', 'name', 'workshop'] });
+const params = FormUtils.getFormParamsFromUrl(window, ';');
+
+formUtils.setDataIntoForm(params, document);
+(document.getElementById(
+  'json-input'
+) as HTMLInputElement).value = JSON.stringify(params);
 
 let ubirchVerification: UbirchVerification | null = null;
 
