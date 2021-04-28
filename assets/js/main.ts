@@ -2,10 +2,13 @@ import {
   UbirchVerification,
   UbirchFormUtils,
   models,
+  infoWatcher$
   // @ts-ignore
 } from './node_modules/ubirch-verification-js/src';
 
 const { EHashAlgorithms, EStages } = models;
+
+infoWatcher$.subscribe((q:any) => console.log(q));
 
 const formUtils = new UbirchFormUtils({
   formIds: ['created', 'name', 'workshop'],
