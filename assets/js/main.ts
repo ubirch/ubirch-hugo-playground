@@ -3,7 +3,7 @@ import {
   UbirchFormUtils,
   models,
   // @ts-ignore
-} from './node_modules/ubirch-verification-js/src';
+} from './node_modules/@ubirch/ubirch-verification-js/dist';
 
 const { EHashAlgorithms, EStages } = models;
 
