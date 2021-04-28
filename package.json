@@ -6,6 +6,6 @@
   "author": "Tomasz Krawczyk <grubach1@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "ubirch-verification-js": "https://github.com/ubirch/ubirch-verification-js#feature/form-utils"
+    "ubirch-verification-js": "https://github.com/ubirch/ubirch-verification-js"
   }
 }
