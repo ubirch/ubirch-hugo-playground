@@ -10,65 +10,37 @@
     <!-- Note that the content for index.html, as a sort of list page, will pull from content/_index.md -->
     {{.Content}}
   </div>
-  <div id="verification">
-    <div class="example">
-      <label for="f" class="formLabel">Name</label>
-      <input id="f" class="formInput" />
-      <label for="g" class="formLabel">Vorname</label>
-      <input id="g" class="formInput" />
-      <label for="b" class="formLabel">Geburtsdatum</label>
-      <input id="b" class="formInput" />
-      <label for="p" class="formLabel">Ausweis-Nr.</label>
-      <input id="p" class="formInput" />
-      <label for="i" class="formLabel">ImpfZentrum-Nr</label>
-      <input id="i" class="formInput" />
-      <label for="d_0" class="formLabel">Datum Impfung 1</label>
-      <input id="d_0" class="formInput" />
-      <label for="d_1" class="formLabel">Datum Impfung 2</label>
-      <input id="d_1" class="formInput" />
-      <label for="t" class="formLabel">Typ</label>
-      <input id="t" class="formInput" />
-      <label for="r" class="formLabel">Impfstoff</label>
-      <input id="r" class="formInput" />
-      <label for="r" class="formLabel">Secret</label>
-      <input id="s" class="formInput" /><br /><button id="get-json-from-inputs">
-        get JSON from Inputs
-      </button>
-    </div>
+  <div>
+    <label>
+      <input type="radio" name="token" value="wrong" />
+      wrong token </label
+    ><br />
+    <label>
+      <input
+        type="radio"
+        name="token"
+        value="eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Rva2VuLmRldi51YmlyY2guY29tIiwic3ViIjoiZDYzZWNjMDMtZjVhNy00ZDQzLTkxZDAtYTMwZDAzNGQ4ZGEzIiwiYXVkIjoiaHR0cHM6Ly92ZXJpZnkuZGV2LnViaXJjaC5jb20iLCJleHAiOjE2MjUwODY0ODQsImlhdCI6MTYxODg2NTcyMywianRpIjoiZjk1NjQyODktOGU3MC00Mjk0LWEyNDItODQ2MWZiMjdhOWE4Iiwic2NwIjpbInVwcDp2ZXJpZnkiXSwicHVyIjoiVGVzdCBUb2tlbiIsInRncCI6W10sInRpZCI6WyIqIl0sIm9yZCI6W119.CVUEKZmnQf22k5WToCMpHLuFz-1QgG5-6-YnZKFIKy8LllTG3BZQ4eKOTI0R7Nn0ac1ZrSumsk9qZsuWYP2wJw"
+      />
+      right token
+    </label>
   </div>
-  <div id="widget">widget placeholder</div>
+  <hr />
   <div class="input-field">
-    <label for="token-input">UBIRCH verification token:</label>
-    <textarea
-      rows="10"
-      cols="80"
-      placeholder=""
-      type="text"
-      id="token-input"
-    ></textarea>
+    <label
+      >JSON:
+      <br />
+      <textarea
+        rows="10"
+        cols="80"
+        placeholder=""
+        type="text"
+        id="json-input"
+      ></textarea>
+    </label>
   </div>
-  <button id="set-token">Set UBIRCH verification token</button>
-  <div class="input-field">
-    <label for="json-input">JSON:</label>
-    <textarea
-      rows="10"
-      cols="80"
-      placeholder=""
-      type="text"
-      id="json-input"
-    ></textarea>
-  </div>
-  <button id="verify-json">Verify JSON</button>
-  <div class="input-field">
-    <label for="output">Output:</label>
-    <textarea
-      rows="10"
-      cols="80"
-      placeholder=""
-      type="text"
-      id="output"
-    ></textarea>
-  </div>
+  <button id="verify-json">Verify</button>
+
+  <div id="widget-root" style="width: 500px"></div>
 
   {{ $js := resources.Get "js/main.ts" | js.Build (dict "minify" true) }}
   <script src="{{$js.RelPermalink}}"></script>

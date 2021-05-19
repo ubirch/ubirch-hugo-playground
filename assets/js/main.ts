@@ -1,45 +1,54 @@
 import {
   UbirchVerification,
+  UbirchVerificationWidget,
   UbirchFormUtils,
   models,
-  messenger$
   // @ts-ignore
-} from './node_modules/ubirch-verification-js/src';
+} from './node_modules/@ubirch/ubirch-verification-js/dist';
 
 const { EHashAlgorithms, EStages } = models;
 
-messenger$.subscribe((q:any) => console.log(q));
+const formUtils = new UbirchFormUtils();
 
-const formUtils = new UbirchFormUtils({
-  formIds: ['created', 'name', 'workshop'],
-});
 const params = formUtils.getFormParamsFromUrl(window, ';');
 formUtils.setDataIntoForm(params, document);
 
-(document.getElementById(
-  'json-input'
-) as HTMLInputElement).value = JSON.stringify(params);
+(document.getElementById('json-input') as HTMLInputElement).value =
+  JSON.stringify(params);
 
 let ubirchVerification: UbirchVerification | null = null;
+let ubirchVerificationWidget: UbirchVerificationWidget | null = null;
+let subscribe = null;
 
-// verify JSON button click listener
-document.getElementById('set-token').addEventListener('click', function () {
-  const token = (document.getElementById('token-input') as HTMLInputElement)
-    .value;
-  if (!token) {
-    // handle the error yourself and inform user about the missing token
-    const msg = 'Token input is empty!\n';
-    window.alert(msg);
-    return;
-  }
-
+const initToken = (accessToken: string) => {
   // create UbirchVerification instance
   ubirchVerification = new UbirchVerification({
     algorithm: EHashAlgorithms.SHA256,
     stage: EStages.dev,
-    accessToken: token,
+    accessToken,
+  });
+
+  ubirchVerificationWidget = new UbirchVerificationWidget({
+    hostSelector: '#widget-root',
+    messenger: ubirchVerification.messenger,
+  });
+
+  if (!subscribe)
+    subscribe = ubirchVerification.messenger.subscribe((q: any) =>
+      console.log(q)
+    );
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  const radios = document.querySelectorAll('input[name="token"]');
+  Array.from(radios).forEach((radio) => {
+    radio.addEventListener('change', () => {
+      console.log((radio as HTMLInputElement).value);
+      initToken((radio as HTMLInputElement).value);
+    });
   });
 });
+
 // verify JSON button click listener
 document.getElementById('verify-json').addEventListener('click', function () {
   if (!ubirchVerification) {
@@ -61,24 +70,5 @@ document.getElementById('verify-json').addEventListener('click', function () {
   }
 
   const hash = ubirchVerification.createHash(json);
-  ubirchVerification
-    .verifyHash(hash)
-    .then((response) => {
-      const msg =
-        'Verification success!!\n\nVerificationResult:\n' +
-        JSON.stringify(response.upp) +
-        '\n' +
-        response.upp.state +
-        '\n' +
-        response.verificationState;
-      (document.getElementById('output') as HTMLInputElement).value = msg;
-    })
-    .catch((errResponse) => {
-      const msg =
-        'Verification failed!!\n\nErrorResponse:\n' +
-        errResponse.verificationState +
-        ', ' +
-        errResponse.failReason;
-      (document.getElementById('output') as HTMLInputElement).value = msg;
-    });
+  ubirchVerification.verifyHash(hash);
 });
