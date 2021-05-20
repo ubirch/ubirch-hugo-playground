@@ -13,7 +13,7 @@
   <div>
     {{range .Params.access_tokens}}
     <label>
-      <input type="radio" name="token" value="{{ .token }}" />
+      <input type="radio" name="token" value="{{ . | jsonify }}" />
       {{.data_schema}} </label
     ><br />
     {{ end }}
@@ -34,6 +34,7 @@
   </div>
   <button id="verify-json">Verify</button>
 
+  <div id="info-root" style="width: 500px"></div>
   <div id="widget-root" style="width: 500px"></div>
 
   {{ $js := resources.Get "js/main.ts" | js.Build (dict "minify" true) }}
