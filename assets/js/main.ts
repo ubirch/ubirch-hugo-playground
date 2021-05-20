@@ -27,8 +27,12 @@ const showInfo = (info: string) => {
 
 const clearInfo = () => showInfo('');
 
-const clearWidget = () => {
-  document.getElementById('widget-root').innerHTML = '';
+const hideWidget = () => {
+  document.getElementById('widget-root').style.display = "none";
+};
+
+const showWidget = () => {
+  document.getElementById('widget-root').style.display = "block";
 };
 
 const initToken = (accessToken: string) => {
@@ -54,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const radios = document.querySelectorAll('input[name="token"]');
   Array.from(radios).forEach((radio) => {
     radio.addEventListener('change', () => {
-      clearWidget();
+      hideWidget();
       clearInfo();
       const value = JSON.parse((radio as HTMLInputElement).value);
       initToken(value.token);
@@ -95,6 +99,7 @@ document.getElementById('verify-json').addEventListener('click', function () {
   validate(schemaName, json)
     .then((validated) => {
       const stringified = JSON.stringify(validated);
+      showWidget();
       const hash = ubirchVerification.createHash(stringified);
       ubirchVerification.verifyHash(hash);
     })
