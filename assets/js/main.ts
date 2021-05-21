@@ -10,11 +10,7 @@ import validate from './validation';
 const { EHashAlgorithms, EStages } = models;
 
 const formUtils = new UbirchFormUtils();
-
-let params = formUtils.getFormParamsFromUrl(window, ';');
-
-(document.getElementById('json-input') as HTMLInputElement).value =
-  JSON.stringify(params);
+let params = {};
 
 let schemaName = '';
 let ubirchVerification: UbirchVerification | null = null;
@@ -28,11 +24,11 @@ const showInfo = (info: string) => {
 const clearInfo = () => showInfo('');
 
 const hideWidget = () => {
-  document.getElementById('widget-root').style.display = "none";
+  document.getElementById('widget-root').style.display = 'none';
 };
 
 const showWidget = () => {
-  document.getElementById('widget-root').style.display = "block";
+  document.getElementById('widget-root').style.display = 'block';
 };
 
 const initToken = (accessToken: string) => {
