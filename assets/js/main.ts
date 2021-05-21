@@ -78,6 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // verify JSON button click listener
 document.getElementById('verify-json').addEventListener('click', function () {
+  hideWidget();
+
   if (!ubirchVerification) {
     // handle the error yourself and inform user about the missing token
     const msg =
