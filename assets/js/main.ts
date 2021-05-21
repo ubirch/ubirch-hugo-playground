@@ -98,14 +98,15 @@ document.getElementById('verify-json').addEventListener('click', function () {
 
   validate(schemaName, json)
     .then((validated) => {
-      clearInfo();
+      console.log('validated json:', validated);
+      showInfo(`Validation OK`);
       showWidget();
       const stringified = JSON.stringify(validated);
       const hash = ubirchVerification.createHash(stringified);
       ubirchVerification.verifyHash(hash);
     })
     .catch((err) => {
-      showInfo(`${err.name}: ${err.errors?.join(', ')}`);
+      showInfo(`${err.name}:<br/>${err.errors?.join('<br/>')}`);
     });
 });
 

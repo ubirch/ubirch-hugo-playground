@@ -4,7 +4,10 @@ import * as yup from './node_modules/yup';
 const schemas = {
   'DATA_SCHEMA_certification-corona-test': yup.object().shape({
     b: yup.string().required(),
-    d: yup.string().required().matches(/^[0-9]*$/, 'd must be all numbers'),
+    d: yup
+      .string()
+      .required()
+      .matches(/^[0-9]*$/, 'd must be all numbers'),
     f: yup.string().required(),
     g: yup.string().required(),
     i: yup.string().required(),
@@ -58,7 +61,10 @@ const validate = (schemaName: string, json: any) => {
       name: 'ValidationError',
       errors: ['Schema not found'],
     });
-  return schemas[schemaName].validate(json, { stripUnknown: true });
+  return schemas[schemaName].validate(json, {
+    stripUnknown: true,
+    abortEarly: false,
+  });
 };
 
 export default validate;

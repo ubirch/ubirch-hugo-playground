@@ -33,8 +33,9 @@
     </label>
   </div>
   <button id="verify-json">Verify</button>
-
-  <div id="info-root" style="width: 500px"></div>
+<hr/>
+<div id="info-root" style="width: 500px"></div>
+<hr/>
   <div id="widget-root" style="width: 500px"></div>
 
   {{ $js := resources.Get "js/main.ts" | js.Build (dict "minify" true) }}
