@@ -4,13 +4,14 @@ import * as yup from './node_modules/yup';
 const schemas = {
   'DATA_SCHEMA_certification-corona-test': yup.object().shape({
     b: yup.string().required(),
-    d: yup.string().required(),
+    d: yup.string().required().matches(/^[0-9]*$/, 'd must be all numbers'),
     f: yup.string().required(),
     g: yup.string().required(),
     i: yup.string().required(),
     p: yup.string().required(),
     r: yup.string().required(),
     s: yup.string().required(),
+    t: yup.string().required(),
   }),
   'DATA_SCHEMA_certification-bvdw-certificate': yup.object().shape({
     co: yup.string().required(),

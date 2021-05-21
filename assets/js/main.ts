@@ -98,8 +98,9 @@ document.getElementById('verify-json').addEventListener('click', function () {
 
   validate(schemaName, json)
     .then((validated) => {
-      const stringified = JSON.stringify(validated);
+      clearInfo();
       showWidget();
+      const stringified = JSON.stringify(validated);
       const hash = ubirchVerification.createHash(stringified);
       ubirchVerification.verifyHash(hash);
     })
